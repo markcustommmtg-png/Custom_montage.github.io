@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkCustommm | Монтаж Reels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030303;
+            --surface: #0e0e0e;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #ccff00;
+            --text: #fff;
+            --text-muted: #888;
+            --font: 'Manrope', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ФОНОВЫЙ ШУМ */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        a { text-decoration: none; color: inherit; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+        .nav-link { 
+            font-size: 0.9rem; 
+            color: var(--text-muted); 
+            font-weight: 600; 
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 100px;
+        }
+        .nav-link:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* HERO */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 80px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(204, 255, 0, 0.08);
+            border: 1px solid rgba(204, 255, 0, 0.2);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            line-height: 1.05;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 30px;
+            max-width: 900px;
+        }
+
+        .hero h1 span { 
+            color: transparent; 
+            -webkit-text-stroke: 1.5px var(--accent); 
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        .hero-actions { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 20px; 
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            padding: 22px 50px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.3px;
+        }
+        .btn-primary:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 40px rgba(204, 255, 0, 0.25); 
+        }
+
+        .tg-inline {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        .tg-inline a { 
+            color: #fff; 
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+        }
+        .tg-inline a:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* MARQUEE */
+        .marquee-wrap {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 25px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-top: 40px;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+        }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* PORTFOLIO */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin: 120px 0 60px;
+        }
+        .section-label { 
+            color: var(--accent); 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            font-size: 0.8rem; 
+            margin-bottom: 10px;
+            display: block;
+        }
+        .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; }
+        .section-link { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 2px; 
+        }
+        .section-link:hover { color: var(--accent); border-color: var(--accent); }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* --- ИЗМЕНЕНИЯ ЗДЕСЬ: КАРТОЧКА ТЕПЕРЬ FLEX --- */
+        .work-card {
+            background: var(--surface);
+            border-radius: 20px;
+            /* aspect-ratio убрали, высота теперь зависит от контента */
+            display: flex;
+            flex-direction: column; /* Видео сверху, текст снизу */
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* Контейнер для видео, чтобы сохранить пропорции 9:16 */
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            position: relative;
+            background: #000;
+        }
+
+        .work-card video, .work-card img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- ТЕКСТ ТЕПЕРЬ В ОТДЕЛЬНОМ БЛОКЕ СНИЗУ --- */
+        .card-info {
+            padding: 20px;
+            background: var(--surface); /* Тот же цвет, что у карточки */
+            border-top: 1px solid rgba(255,255,255,0.05); /* Тонкая линия разделитель */
+            text-align: left;
+        }
+
+        .card-tag { 
+            color: var(--accent); 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 8px; 
+            display: block;
+        }
+        .card-title { 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #fff;
+        }
+
+        /* STATS LINE */
+        .stats-line {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--border);
+            margin-top: 120px;
+        }
+        .stat-item {
+            padding: 60px 40px;
+            border-right: 1px solid var(--border);
+            text-align: center;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num { 
+            font-size: clamp(2.5rem, 4vw, 3.5rem); 
+            font-weight: 800; 
+            color: var(--accent); 
+            line-height: 1; 
+            margin-bottom: 15px; 
+            display: block;
+        }
+        .stat-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+
+        /* CTA FOOTER */
+        .cta-footer {
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+        .cta-big-text {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.8rem; letter-spacing: -1px; }
+            .work-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .stats-line { grid-template-columns: 1fr; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 20px; }
+            .stat-item:last-child { border-bottom: none; }
+            .container { padding: 0 20px; }
+            nav { padding: 20px; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 15px; margin-top: 80px; }
+            
+            /* На мобильных тоже текст под видео */
+            .card-info { padding: 15px; }
+            .card-title { font-size: 0.95rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .work-grid { grid-template-columns: 1fr; max-width: 350px; margin: 0 auto; }
+            .hero { min-height: 70vh; padding-top: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">MARKCUSTOMMM.</div>
+        <a href="https://t.me/MarkCustommm" class="nav-link">Написать в Telegram ↗</a>
+    </nav>
+
+    <main class="container">
+        <!-- HERO -->
+        <section class="hero">
+            <span class="hero-badge">🎬 Reels & Shorts Монтажер</span>
+            <h1>Создаю Reels,<br>которые <span>залетают</span></h1>
+            <p class="hero-desc">Динамичный монтаж, удержание внимания и визуальный сторителлинг для блогеров и экспертов. Монтирую в After Effects и Premiere Pro.</p>
+            
+            <div class="hero-actions">
+                <a href="https://t.me/MarkCustommm" class="btn-primary">Обсудить проект</a>
+                <div class="tg-inline">
+                    Или напишите напрямую в Telegram: <a href="https://t.me/MarkCustommm">@MarkCustommm</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЕГУЩАЯ СТРОКА -->
+        <div class="marquee-wrap">
+            <div class="marquee-content">
+                Adobe Premiere Pro • After Effects • CapCut • Цветокоррекция • Саунд-дизайн • Моушн-графика • Adobe Premiere Pro • After Effects • CapCut •
+            </div>
+        </div>
+
+        <!-- ПОРТФОЛИО -->
+        <section>
+            <div class="section-header">
+                <div>
+                    <span class="section-label">Портфолио</span>
+                    <h2 class="section-title">Последние работы</h2>
+                </div>
+                <a href="https://t.me/MarkCustommm" class="section-link">Смотреть все работы в Telegram ↗</a>
+            </div>
+
+            <div class="work-grid">
+                <!-- КАРТОЧКА 1 -->
+                <div class="work-card">
+                    <div class="video-wrapper">
+                        <!-- Вставь сюда свой файл -->
+                        <video controls preload="metadata">
+                            <source src="Videos/reels1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- ТЕКСТ ТЕПЕРЬ ЗДЕСЬ, ПОД ВИДЕО -->
+                    <div class="card-info">
+                        <span class="card-tag">Научпоп</span>
+                        <div class="card-title">Динамичная подача</div>
+                    </div>
+                </div>
+
+                <!-- КАРТОЧКА 2 -->
+                <div class="work-card">
+                    <div class="video-wrapper">
+                        <video controls preload="metadata">
+                            <source src="Videos/reels2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-info">
+                        <span class="card-tag">Lifestyle / Влог</span>
+                        <div class="card-title">Атмосферный монтаж</div>
+                    </div>
+                </div>
+
+                <!-- КАРТОЧКА 3 -->
+                <div class="work-card">
+                    <div class="video-wrapper">
+                        <video controls preload="metadata">
+                            <source src="Videos/reels3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-info">
+                        <span class="card-tag">Экспертный блог</span>
+                        <div class="card-title">Продающий ролик</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- СТАТИСТИКА -->
+        <div class="stats-line">
+            <div class="stat-item">
+                <span class="stat-num">2+</span>
+                <span class="stat-text">Года коммерческого опыта<br>в вертикальном монтаже</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">AE + PR</span>
+                <span class="stat-text">Профессиональный стек<br>для сложной моушн-графики</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">36ч</span>
+                <span class="stat-text">Среднее время производства<br>одного качественного Reels</span>
+            </div>
+        </div>
+
+        <!-- ФИНАЛЬНЫЙ CTA -->
+        <section class="cta-footer">
+            <h2 class="cta-big-text">Нужен монтаж,<br>который приносит результат?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 40px; max-width: 550px; margin-left: auto; margin-right: auto; font-size: 1.1rem; line-height: 1.6;">
+                Не тратьте время на рутину. Присылайте исходники — я превращу их в контент, который хочется пересматривать.
+            </p>
+            <a href="https://t.me/MarkCustommm" class="btn-primary">Написать в Telegram</a>
+        </section>
+    </main>
+<footer style="text-align: center; padding: 40px; color: #555; font-size: 0.8rem; border-top: 1px solid #222;">
+    © 2026 MarkCustommm. Все права защищены.<br>
+    Сайт носит информационный характер и не является публичной офертой.
+</footer>
+</body>
+</html>
